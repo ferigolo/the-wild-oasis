@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Cabin {
+  id           Int      @id @default(autoincrement())
+  name         String
+  description  String?
+  maxCapacity  Int      @default(2)
+  regularPrice Float
+  discount     Int      @default(0)
+  image        String?
+  createdAt    DateTime @default(now())
+
+  bookings Booking[]
+}
+
+model Guest {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  fullName    String
+  email       String   @unique
+  nationality String
+  countryFlag String
+  nationalId  String
+
+  bookings Booking[]
+}
+
+model Settings {
+  id                  Int      @id @default(autoincrement())
+  createdAt           DateTime @default(now())
+  minBookingLength    Int      @default(1)
+  maxBookingLength    Int      @default(30)
+  maxGuestsPerBooking Int      @default(5)
+  breakfastPrice      Float
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Booking {
+  id             Int           @id @default(autoincrement())
+  createdAt      DateTime      @default(now())
+  guestId        Int
+  cabinId        Int
+  checkInDate    DateTime
+  checkOutDate   DateTime
+  numberOfGuests Int
+  hasBreakfast   Boolean       @default(false)
+  cabinPrice     Float     
+  extrasPrice    Float?
+  status         BookingStatus @default(PENDING)
+  isPaid         Boolean       @default(false)
+  observations   String?
+
+  guest Guest @relation(fields: [guestId], references: [id])
+  cabin Cabin @relation(fields: [cabinId], references: [id])
+}
