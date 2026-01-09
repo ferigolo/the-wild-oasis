@@ -62,3 +62,8 @@
   --rdp-background-color: var(--color-accent-600) !important;
   margin: 0 !important;
 }
+
+.rdp-root {
+  --rdp-accent-color: var(--color-accent-500) !important;
+  --rdp-accent-background-color: var(--color-accent-600) !important;
+}

@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
 import Filter from "../_components/Filter";
-import ReservationReminder from "./components/ReservationReminder";
+import ReservationReminder from "../account/reservations/components/ReservationReminder";
+import CabinList from "./components/CabinList";
 
 export default async function Page({
   searchParams,

@@ -1,10 +1,21 @@
 "use client";
 
-export default function Error({ error, reset }) {
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: CallableFunction;
+}) {
+  const messageObj = JSON.parse(error.message);
   return (
     <main className="flex justify-center items-center flex-col gap-6">
       <h1 className="text-3xl font-semibold">Something went wrong!</h1>
-      <p className="text-lg">{error.message}</p>
+      {Object.entries(messageObj).map(([key, value]) => (
+        <p key={key} className="text-lg">
+          {value as string}
+        </p>
+      ))}
 
       <button
         className="inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg"

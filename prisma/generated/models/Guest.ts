@@ -28,10 +28,12 @@ export type AggregateGuest = {
 
 export type GuestAvgAggregateOutputType = {
   id: number | null
+  nationalId: number | null
 }
 
 export type GuestSumAggregateOutputType = {
   id: number | null
+  nationalId: number | null
 }
 
 export type GuestMinAggregateOutputType = {
@@ -41,7 +43,7 @@ export type GuestMinAggregateOutputType = {
   email: string | null
   nationality: string | null
   countryFlag: string | null
-  nationalId: string | null
+  nationalId: number | null
 }
 
 export type GuestMaxAggregateOutputType = {
@@ -51,7 +53,7 @@ export type GuestMaxAggregateOutputType = {
   email: string | null
   nationality: string | null
   countryFlag: string | null
-  nationalId: string | null
+  nationalId: number | null
 }
 
 export type GuestCountAggregateOutputType = {
@@ -68,10 +70,12 @@ export type GuestCountAggregateOutputType = {
 
 export type GuestAvgAggregateInputType = {
   id?: true
+  nationalId?: true
 }
 
 export type GuestSumAggregateInputType = {
   id?: true
+  nationalId?: true
 }
 
 export type GuestMinAggregateInputType = {
@@ -196,9 +200,9 @@ export type GuestGroupByOutputType = {
   createdAt: Date
   fullName: string
   email: string
-  nationality: string
-  countryFlag: string
-  nationalId: string
+  nationality: string | null
+  countryFlag: string | null
+  nationalId: number | null
   _count: GuestCountAggregateOutputType | null
   _avg: GuestAvgAggregateOutputType | null
   _sum: GuestSumAggregateOutputType | null
@@ -229,9 +233,9 @@ export type GuestWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Guest"> | Date | string
   fullName?: Prisma.StringFilter<"Guest"> | string
   email?: Prisma.StringFilter<"Guest"> | string
-  nationality?: Prisma.StringFilter<"Guest"> | string
-  countryFlag?: Prisma.StringFilter<"Guest"> | string
-  nationalId?: Prisma.StringFilter<"Guest"> | string
+  nationality?: Prisma.StringNullableFilter<"Guest"> | string | null
+  countryFlag?: Prisma.StringNullableFilter<"Guest"> | string | null
+  nationalId?: Prisma.IntNullableFilter<"Guest"> | number | null
   bookings?: Prisma.BookingListRelationFilter
 }
 
@@ -240,9 +244,9 @@ export type GuestOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  nationality?: Prisma.SortOrder
-  countryFlag?: Prisma.SortOrder
-  nationalId?: Prisma.SortOrder
+  nationality?: Prisma.SortOrderInput | Prisma.SortOrder
+  countryFlag?: Prisma.SortOrderInput | Prisma.SortOrder
+  nationalId?: Prisma.SortOrderInput | Prisma.SortOrder
   bookings?: Prisma.BookingOrderByRelationAggregateInput
 }
 
@@ -254,9 +258,9 @@ export type GuestWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.GuestWhereInput | Prisma.GuestWhereInput[]
   createdAt?: Prisma.DateTimeFilter<"Guest"> | Date | string
   fullName?: Prisma.StringFilter<"Guest"> | string
-  nationality?: Prisma.StringFilter<"Guest"> | string
-  countryFlag?: Prisma.StringFilter<"Guest"> | string
-  nationalId?: Prisma.StringFilter<"Guest"> | string
+  nationality?: Prisma.StringNullableFilter<"Guest"> | string | null
+  countryFlag?: Prisma.StringNullableFilter<"Guest"> | string | null
+  nationalId?: Prisma.IntNullableFilter<"Guest"> | number | null
   bookings?: Prisma.BookingListRelationFilter
 }, "id" | "email">
 
@@ -265,9 +269,9 @@ export type GuestOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  nationality?: Prisma.SortOrder
-  countryFlag?: Prisma.SortOrder
-  nationalId?: Prisma.SortOrder
+  nationality?: Prisma.SortOrderInput | Prisma.SortOrder
+  countryFlag?: Prisma.SortOrderInput | Prisma.SortOrder
+  nationalId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.GuestCountOrderByAggregateInput
   _avg?: Prisma.GuestAvgOrderByAggregateInput
   _max?: Prisma.GuestMaxOrderByAggregateInput
@@ -283,18 +287,18 @@ export type GuestScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Guest"> | Date | string
   fullName?: Prisma.StringWithAggregatesFilter<"Guest"> | string
   email?: Prisma.StringWithAggregatesFilter<"Guest"> | string
-  nationality?: Prisma.StringWithAggregatesFilter<"Guest"> | string
-  countryFlag?: Prisma.StringWithAggregatesFilter<"Guest"> | string
-  nationalId?: Prisma.StringWithAggregatesFilter<"Guest"> | string
+  nationality?: Prisma.StringNullableWithAggregatesFilter<"Guest"> | string | null
+  countryFlag?: Prisma.StringNullableWithAggregatesFilter<"Guest"> | string | null
+  nationalId?: Prisma.IntNullableWithAggregatesFilter<"Guest"> | number | null
 }
 
 export type GuestCreateInput = {
   createdAt?: Date | string
   fullName: string
   email: string
-  nationality: string
-  countryFlag: string
-  nationalId: string
+  nationality?: string | null
+  countryFlag?: string | null
+  nationalId?: number | null
   bookings?: Prisma.BookingCreateNestedManyWithoutGuestInput
 }
 
@@ -303,9 +307,9 @@ export type GuestUncheckedCreateInput = {
   createdAt?: Date | string
   fullName: string
   email: string
-  nationality: string
-  countryFlag: string
-  nationalId: string
+  nationality?: string | null
+  countryFlag?: string | null
+  nationalId?: number | null
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuestInput
 }
 
@@ -313,9 +317,9 @@ export type GuestUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  nationality?: Prisma.StringFieldUpdateOperationsInput | string
-  countryFlag?: Prisma.StringFieldUpdateOperationsInput | string
-  nationalId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryFlag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bookings?: Prisma.BookingUpdateManyWithoutGuestNestedInput
 }
 
@@ -324,9 +328,9 @@ export type GuestUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  nationality?: Prisma.StringFieldUpdateOperationsInput | string
-  countryFlag?: Prisma.StringFieldUpdateOperationsInput | string
-  nationalId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryFlag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutGuestNestedInput
 }
 
@@ -335,18 +339,18 @@ export type GuestCreateManyInput = {
   createdAt?: Date | string
   fullName: string
   email: string
-  nationality: string
-  countryFlag: string
-  nationalId: string
+  nationality?: string | null
+  countryFlag?: string | null
+  nationalId?: number | null
 }
 
 export type GuestUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  nationality?: Prisma.StringFieldUpdateOperationsInput | string
-  countryFlag?: Prisma.StringFieldUpdateOperationsInput | string
-  nationalId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryFlag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GuestUncheckedUpdateManyInput = {
@@ -354,9 +358,9 @@ export type GuestUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  nationality?: Prisma.StringFieldUpdateOperationsInput | string
-  countryFlag?: Prisma.StringFieldUpdateOperationsInput | string
-  nationalId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryFlag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GuestCountOrderByAggregateInput = {
@@ -371,6 +375,7 @@ export type GuestCountOrderByAggregateInput = {
 
 export type GuestAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  nationalId?: Prisma.SortOrder
 }
 
 export type GuestMaxOrderByAggregateInput = {
@@ -395,11 +400,20 @@ export type GuestMinOrderByAggregateInput = {
 
 export type GuestSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  nationalId?: Prisma.SortOrder
 }
 
 export type GuestScalarRelationFilter = {
   is?: Prisma.GuestWhereInput
   isNot?: Prisma.GuestWhereInput
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type GuestCreateNestedOneWithoutBookingsInput = {
@@ -420,9 +434,9 @@ export type GuestCreateWithoutBookingsInput = {
   createdAt?: Date | string
   fullName: string
   email: string
-  nationality: string
-  countryFlag: string
-  nationalId: string
+  nationality?: string | null
+  countryFlag?: string | null
+  nationalId?: number | null
 }
 
 export type GuestUncheckedCreateWithoutBookingsInput = {
@@ -430,9 +444,9 @@ export type GuestUncheckedCreateWithoutBookingsInput = {
   createdAt?: Date | string
   fullName: string
   email: string
-  nationality: string
-  countryFlag: string
-  nationalId: string
+  nationality?: string | null
+  countryFlag?: string | null
+  nationalId?: number | null
 }
 
 export type GuestCreateOrConnectWithoutBookingsInput = {
@@ -455,9 +469,9 @@ export type GuestUpdateWithoutBookingsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  nationality?: Prisma.StringFieldUpdateOperationsInput | string
-  countryFlag?: Prisma.StringFieldUpdateOperationsInput | string
-  nationalId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryFlag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GuestUncheckedUpdateWithoutBookingsInput = {
@@ -465,9 +479,9 @@ export type GuestUncheckedUpdateWithoutBookingsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  nationality?: Prisma.StringFieldUpdateOperationsInput | string
-  countryFlag?: Prisma.StringFieldUpdateOperationsInput | string
-  nationalId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryFlag?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -561,9 +575,9 @@ export type $GuestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     createdAt: Date
     fullName: string
     email: string
-    nationality: string
-    countryFlag: string
-    nationalId: string
+    nationality: string | null
+    countryFlag: string | null
+    nationalId: number | null
   }, ExtArgs["result"]["guest"]>
   composites: {}
 }
@@ -994,7 +1008,7 @@ export interface GuestFieldRefs {
   readonly email: Prisma.FieldRef<"Guest", 'String'>
   readonly nationality: Prisma.FieldRef<"Guest", 'String'>
   readonly countryFlag: Prisma.FieldRef<"Guest", 'String'>
-  readonly nationalId: Prisma.FieldRef<"Guest", 'String'>
+  readonly nationalId: Prisma.FieldRef<"Guest", 'Int'>
 }
     
 

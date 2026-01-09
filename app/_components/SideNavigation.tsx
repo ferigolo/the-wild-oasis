@@ -1,7 +1,7 @@
 "use client";
 
 import { CalendarDays, Home, User } from "lucide-react";
-import SignOutButton from "./SignOutButton";
+import SignOutButton from "../auth/components/SignOutButton";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 

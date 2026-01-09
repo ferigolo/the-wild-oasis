@@ -22,11 +22,11 @@ export default async function Navigation() {
           </Link>
         </li>
         <li>
-          {session?.user?.image ? (
-            <Link
-              href="/account"
-              className="hover:text-accent-400 transition-colors relative flex items-center gap-4 ">
-              <span>Guest area</span>
+          <Link
+            href="/account"
+            className="hover:text-accent-400 transition-colors relative flex items-center gap-4 ">
+            <span>Guest area</span>
+            {session?.user?.image ? (
               <div className="w-8 h-8 relative">
                 <Image
                   fill
@@ -35,8 +35,8 @@ export default async function Navigation() {
                   alt={session.user.name || ""}
                   referrerPolicy="no-referrer"></Image>
               </div>
-            </Link>
-          ) : null}
+            ) : null}
+          </Link>
         </li>
       </ul>
     </nav>

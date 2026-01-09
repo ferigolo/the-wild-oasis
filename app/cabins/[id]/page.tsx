@@ -1,4 +1,3 @@
-import Reservation from "@/app/cabins/components/Reservation";
 import Spinner from "@/app/_components/Spinner";
 import TextExpander from "@/app/_components/TextExpander";
 import { Cabin as CabinModel } from "@/prisma/generated/client";
@@ -7,7 +6,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getCabin, getCabins } from "../actions";
+import Reservation from "@/app/_components/Reservation";
+import { createBooking } from "@/app/_lib/actions";
+import { getCabin, getCabins } from "@/app/_services/data-service";
 
 export async function generateMetadata({
   params,
@@ -24,7 +25,7 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const cabins = await getCabins({ id: true });
-  return cabins.map((cabin) => ({
+  return cabins.map((cabin: CabinModel) => ({
     id: String(cabin.id),
   }));
 }
@@ -37,6 +38,7 @@ export default async function Page({
   const { id } = await params;
   const cabin = await getCabin(id);
   if (!cabin) notFound();
+
   return (
     <div className="max-w-6xl mx-auto mt-8">
       <Cabin cabin={cabin}></Cabin>
@@ -45,7 +47,7 @@ export default async function Page({
           Reserve {cabin.name} today. Pay on arrival.
         </h2>
         <Suspense fallback={<Spinner></Spinner>}>
-          <Reservation cabin={cabin}></Reservation>
+          <Reservation cabin={cabin} action={createBooking}></Reservation>
         </Suspense>
       </div>
     </div>

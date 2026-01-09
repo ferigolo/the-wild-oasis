@@ -25,9 +25,9 @@ model Guest {
   createdAt   DateTime @default(now())
   fullName    String
   email       String   @unique
-  nationality String
-  countryFlag String
-  nationalId  String
+  nationality String?
+  countryFlag String?
+  nationalId  Int?
 
   bookings Booking[]
 }
@@ -57,7 +57,7 @@ model Booking {
   checkOutDate   DateTime
   numberOfGuests Int
   hasBreakfast   Boolean       @default(false)
-  cabinPrice     Float     
+  cabinPrice     Float
   extrasPrice    Float?
   status         BookingStatus @default(PENDING)
   isPaid         Boolean       @default(false)

@@ -1,52 +1,42 @@
 "use client";
 
 import { useReservation } from "@/app/_context/ReservationContext";
-import { Booking, Settings } from "@/prisma/generated/client";
-import { isWithinInterval } from "date-fns";
-import { DayPicker } from "react-day-picker";
+import { Cabin, Settings } from "@/prisma/generated/client";
+import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
-function isAlreadyBooked(range: { from: Date; to: Date }, datesArr) {
-  return (
-    range.from &&
-    range.to &&
-    datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
-    )
-  );
-}
-
 function DateSelector({
+  cabin,
   settings,
   bookedDates,
 }: {
-  settings: Settings | null;
-  bookedDates: Booking[];
+  cabin: Cabin;
+  settings: Settings;
+  bookedDates?: DateRange[];
 }) {
-  // CHANGE
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
-
-  // SETTINGS
-  const minBookingLength = 1;
-  const maxBookingLength = 23;
+  const { regularPrice, discount } = cabin;
+  const { minBookingLength, maxBookingLength } = settings;
 
   const { range, setRange, resetRange } = useReservation();
+
+  let numNights = null;
+  if (range.to && range.from)
+    numNights = (range.to - range.from) / (1000 * 60 * 60 * 24) || 0;
+
+  console.log(bookedDates);
 
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
-        className="pt-12 ps-12 pe-12 place-self-center"
+        animate
+        disabled={bookedDates}
+        className="pt-12 ps-12 pe-12 pb-12 place-self-center"
         mode="range"
         onSelect={setRange}
         selected={range}
-        min={minBookingLength + 1}
+        min={minBookingLength}
         max={maxBookingLength}
         startMonth={new Date()}
-        fromDate={new Date()}
-        toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
         numberOfMonths={2}
       />
@@ -73,7 +63,9 @@ function DateSelector({
               </p>
               <p>
                 <span className="text-lg font-bold uppercase">Total</span>{" "}
-                <span className="text-2xl font-semibold">${cabinPrice}</span>
+                <span className="text-2xl font-semibold">
+                  ${regularPrice * numNights}
+                </span>
               </p>
             </>
           ) : null}

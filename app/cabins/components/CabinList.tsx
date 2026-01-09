@@ -1,6 +1,6 @@
 import { FilterTypes } from "@/types";
-import { getCabins } from "../cabins/actions";
 import CabinCard from "./CabinCard";
+import { getCabins } from "@/app/_services/data-service";
 
 function getNumberRange(filter: FilterTypes) {
   if (filter == "large") return { gte: 8 };

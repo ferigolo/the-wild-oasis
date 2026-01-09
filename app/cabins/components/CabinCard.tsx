@@ -22,7 +22,7 @@ function CabinCard({ cabin }: { cabin: Cabin }) {
             src={image}
             fill
             alt={`Cabin ${name}`}
-            className="flex-1 border-r border-primary-800"
+            className="flex-1 border-r border-primary-800 object-cover"
           />
         </div>
       )}
