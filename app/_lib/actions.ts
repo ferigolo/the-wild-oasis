@@ -38,7 +38,7 @@ export async function createBooking(formData: FormData) {
   const { id } = await prisma.booking.create({ data });
   revalidatePath(`/account/reservation/${id}`);
   revalidatePath("/account/reservation");
-  redirect("/account/reservations");
+  redirect("/cabin/thankyou");
 }
 
 export async function updateReservation(formData: FormData) {

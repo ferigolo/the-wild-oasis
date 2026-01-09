@@ -2,8 +2,21 @@
 
 import { useReservation } from "@/app/_context/ReservationContext";
 import { Cabin, Settings } from "@/prisma/generated/client";
+import { isPast } from "date-fns";
 import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+
+function isDateBooked(dateToCheck: Date, bookedDates?: DateRange[]) {
+  return (
+    bookedDates?.some(
+      (bookedDate) =>
+        bookedDate.from &&
+        bookedDate.to &&
+        dateToCheck.getTime() >= bookedDate.from.getTime() &&
+        bookedDate.to.getTime() >= dateToCheck.getTime()
+    ) ?? false
+  );
+}
 
 function DateSelector({
   cabin,
@@ -20,16 +33,15 @@ function DateSelector({
   const { range, setRange, resetRange } = useReservation();
 
   let numNights = null;
-  if (range.to && range.from)
-    numNights = (range.to - range.from) / (1000 * 60 * 60 * 24) || 0;
-
-  console.log(bookedDates);
+  if (range?.to && range?.from)
+    numNights =
+      (range.to.getTime() - range.from.getTime()) / (1000 * 60 * 60 * 24) || 0;
 
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
         animate
-        disabled={bookedDates}
+        disabled={(date) => isPast(date) || isDateBooked(date, bookedDates)}
         className="pt-12 ps-12 pe-12 pb-12 place-self-center"
         mode="range"
         onSelect={setRange}
@@ -71,7 +83,7 @@ function DateSelector({
           ) : null}
         </div>
 
-        {range.from || range.to ? (
+        {range?.from || range?.to ? (
           <button
             className="border border-primary-800 py-2 px-4 text-sm font-semibold"
             onClick={resetRange}>

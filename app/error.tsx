@@ -7,15 +7,22 @@ export default function Error({
   error: Error;
   reset: CallableFunction;
 }) {
-  const messageObj = JSON.parse(error.message);
+  let messageObj = error.message;
+  try {
+    messageObj = JSON.parse(error.message);
+  } catch {}
   return (
     <main className="flex justify-center items-center flex-col gap-6">
       <h1 className="text-3xl font-semibold">Something went wrong!</h1>
-      {Object.entries(messageObj).map(([key, value]) => (
-        <p key={key} className="text-lg">
-          {value as string}
-        </p>
-      ))}
+      {typeof messageObj == "string" ? (
+        <p className="text-lg">{messageObj}</p>
+      ) : (
+        Object.entries(messageObj).map(([key, value]) => (
+          <p key={key} className="text-lg">
+            {value as string}
+          </p>
+        ))
+      )}
 
       <button
         className="inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg"

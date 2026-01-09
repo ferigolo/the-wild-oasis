@@ -68,7 +68,7 @@ function ReservationForm({
           <input
             type="date"
             name="checkInDate"
-            value={formatDateForInput(range.from)}
+            value={formatDateForInput(range?.from)}
             readOnly
           />
         </div>
@@ -77,7 +77,7 @@ function ReservationForm({
           <input
             type="date"
             name="checkOutDate"
-            value={formatDateForInput(range.to)}
+            value={formatDateForInput(range?.to)}
             readOnly
           />
         </div>
@@ -123,7 +123,7 @@ function ReservationForm({
         </div>
 
         <div className="flex justify-end items-center gap-6">
-          {!(range.from && range.to) ? (
+          {!(range?.from && range.to) ? (
             <p className="text-primary-300 text-base">
               Start by selecting dates
             </p>

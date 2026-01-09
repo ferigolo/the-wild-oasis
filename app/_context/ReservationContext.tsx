@@ -3,12 +3,19 @@
 import { createContext, ReactNode, use, useState } from "react";
 import { DateRange } from "react-day-picker";
 
-const ReservationContext = createContext();
-
 const initialState = {
   from: undefined,
   to: undefined,
 } as DateRange;
+
+const ReservationContext = createContext<
+  | {
+      range: DateRange | undefined;
+      setRange: (range: DateRange | undefined) => void;
+      resetRange: () => void;
+    }
+  | undefined
+>(undefined);
 
 export function ReservationProvider({ children }: { children: ReactNode }) {
   const [range, setRange] = useState<DateRange | undefined>(initialState);

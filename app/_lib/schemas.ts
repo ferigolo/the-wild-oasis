@@ -33,7 +33,7 @@ export const BookingCreateSchema = z
       .date()
       .min(new Date(), { message: "Checkin date must be greater than today" }),
     checkOutDate: z.coerce.date(),
-    observations: z.string().optional(),
+    observations: z.string().max(255).optional(),
     numberOfGuests: z.coerce.number().min(1),
   })
   .refine((data) => data.checkOutDate > data.checkInDate, {
@@ -77,7 +77,7 @@ export const BookingUpdateSchema = z
     cabinId: z.coerce.number().min(1),
     checkInDate: z.coerce.date(),
     checkOutDate: z.coerce.date(),
-    observations: z.string().optional(),
+    observations: z.string().max(255).optional(),
     numberOfGuests: z.coerce.number().min(1),
   })
   .refine((data) => data.checkOutDate > data.checkInDate, {
